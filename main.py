@@ -88,7 +88,7 @@ def train(model, elogger, train_set, eval_set):
         evaluate(model, elogger, eval_set, save_result = False)
 
         # save the weight file after each epoch
-        weight_name = '{}-{}'.format(args.log_file, str(datetime.datetime.now()))
+        weight_name = '{}-{}'.format(args.log_file, str(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")))
         elogger.log('Save weight file {}'.format(weight_name))
         torch.save(model.state_dict(), './saved_weights/' + weight_name)
 
