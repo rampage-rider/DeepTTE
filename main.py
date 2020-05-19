@@ -18,6 +18,8 @@ from torch.autograd import Variable
 
 import numpy as np
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 parser = argparse.ArgumentParser()
 # basic args
 parser.add_argument('--task', type = str)
@@ -51,8 +53,8 @@ def train(model, elogger, train_set, eval_set):
 
     model.train()
 
-    if torch.cuda.is_available():
-        model.cuda()
+    #if torch.cuda.is_available():
+    model.to(device)
 
     optimizer = optim.Adam(model.parameters(), lr = 1e-3)
 
@@ -153,8 +155,8 @@ def run():
     elif args.task == 'test':
         # load the saved weight file
         model.load_state_dict(torch.load(args.weight_file))
-        if torch.cuda.is_available():
-            model.cuda()
+        #if torch.cuda.is_available():
+        model.to(device)
         evaluate(model, elogger, config['test_set'], save_result = True)
 
 if __name__ == '__main__':

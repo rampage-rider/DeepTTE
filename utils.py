@@ -7,6 +7,8 @@ from math import radians, cos, sin, asin, sqrt
 
 config = json.load(open('./config.json', 'r'))
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 def geo_distance(lon1, lat1, lon2, lat2):
     """
     Calculate the great circle distance between two points
@@ -40,8 +42,8 @@ def pad_sequence(sequences, lengths):
 def to_var(var):
     if torch.is_tensor(var):
         var = Variable(var)
-        if torch.cuda.is_available():
-            var = var.cuda()
+        #if torch.cuda.is_available():
+        var = var.to(device)
         return var
     if isinstance(var, int) or isinstance(var, float):
         return var
