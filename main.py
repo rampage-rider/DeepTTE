@@ -120,7 +120,7 @@ def evaluate(model, elogger, files, save_result = False):
 
             if save_result: write_result(fs, pred_dict, attr)
 
-            running_loss += loss.data[0]
+            running_loss += loss.item()
 
         print 'Evaluate on file {}, loss {}'.format(input_file, running_loss / (idx + 1.0))
         elogger.log('Evaluate File {}, Loss {}'.format(input_file, running_loss / (idx + 1.0)))
