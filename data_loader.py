@@ -26,9 +26,11 @@ def collate_fn(data):
     traj_attrs = ['lngs', 'lats', 'states', 'time_gap', 'dist_gap']
 
     attr, traj = {}, {}
-
+#    for item in data:
+#	if len(item['lngs'])==1:
+#		print(item)
     lens = np.asarray([len(item['lngs']) for item in data])
-
+	
     for key in stat_attrs:
         x = torch.FloatTensor([item[key] for item in data])
         attr[key] = utils.normalize(x, key)
@@ -48,7 +50,7 @@ def collate_fn(data):
 
         padded = torch.from_numpy(padded).float()
         traj[key] = padded
-
+	
     lens = lens.tolist()
     traj['lens'] = lens
 

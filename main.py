@@ -69,6 +69,8 @@ def train(model, elogger, train_set, eval_set):
             running_loss = 0.0
 
             for idx, (attr, traj) in enumerate(data_iter):
+#		print('attr',attr)
+#		print('traj',traj)
                 # transform the input to pytorch variable
                 attr, traj = utils.to_var(attr), utils.to_var(traj)
 
