@@ -83,9 +83,10 @@ class Net(nn.Module):
 
         # concat the loc_conv and the attributes
         conv_locs = torch.cat((conv_locs, expand_attr_t), dim = 2)
-
+	#print('traj[len]',traj['lens'])
+	#print('self.kernel_size',self.kernel_size)
         lens = map(lambda x: x - self.kernel_size + 1, traj['lens'])
-
+	#print('lens',lens)	
         packed_inputs = nn.utils.rnn.pack_padded_sequence(conv_locs, lens, batch_first = True)
 
         packed_hiddens, (h_n, c_n) = self.rnn(packed_inputs)
